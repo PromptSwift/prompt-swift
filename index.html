@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptSwift - مولد الأوامر الذكية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between">
+
+    <!-- Header -->
+    <header class="border-b border-slate-800 py-4 px-6 flex justify-between items-center bg-slate-900/50 backdrop-blur">
+        <div class="flex items-center gap-2">
+            <span class="text-2xl">⚡</span>
+            <h1 class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">PromptSwift</h1>
+        </div>
+        <span class="text-xs bg-purple-900/50 text-purple-300 border border-purple-700/50 px-3 py-1 rounded-full">نسخة تجريبية مجانية</span>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-2xl w-full mx-auto px-4 py-10 flex-grow">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold mb-2">حول فكرتك إلى "برومبت" احترافي</h2>
+            <p class="text-slate-400 text-sm">اكتب فكرتك باختصار، وسيقوم النظام بتوليد أمر احترافي دقيق لـ ChatGPT أو Gemini.</p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+            <div class="mb-4">
+                <label class="block text-sm font-semibold mb-2 text-slate-300">ما الذي تريد أن يفعله الذكاء الاصطناعي؟</label>
+                <input type="text" id="userInput" placeholder="مثال: اكتب لي مقالاً عن التسويق الرقمي..." 
+                    class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 focus:outline-none focus:border-purple-500 transition">
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-semibold mb-2 text-slate-300">اختر الهدف:</label>
+                <select id="promptType" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 focus:outline-none focus:border-purple-500 transition">
+                    <option value="content">كتابة محتوى ومقالات (Content Writing)</option>
+                    <option value="code">برمجة وتطوير (Coding & Tech)</option>
+                    <option value="marketing">إعلانات وتسويق (Marketing & Copywriting)</option>
+                    <option value="analysis">تحليل بيانات وحل مشاكل (Analysis & Problem Solving)</option>
+                </select>
+            </div>
+
+            <button onclick="generatePrompt()" 
+                class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-purple-900/20">
+                توليد البرومبت الاحترافي ⚡
+            </button>
+        </div>
+
+        <!-- Result Box -->
+        <div id="resultContainer" class="mt-6 hidden">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 relative">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-xs text-purple-400 font-semibold">النتيجة الجاهزة:</span>
+                    <button onclick="copyResult()" class="text-xs bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg text-slate-300 transition flex items-center gap-1">
+                        📋 نسخ النص
+                    </button>
+                </div>
+                <div id="outputBox" class="bg-slate-950 p-4 rounded-xl text-sm text-slate-300 border border-slate-800/50 whitespace-pre-wrap select-all font-mono" dir="ltr"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 text-center py-4 text-xs text-slate-500">
+        PromptSwift AI © 2026 - جميع الحقوق محفوظة
+    </footer>
+
+    <script>
+        function generatePrompt() {
+            const input = document.getElementById('userInput').value.trim();
+            const type = document.getElementById('promptType').value;
+            
+            if(!input) {
+                alert('الرجاء كتابة الفكرة أولاً!');
+                return;
+            }
+
+            let enhanced = "";
+            switch(type) {
+                - case 'content':
+                    enhanced = `Act as an expert professional content writer and copywriter. Write a comprehensive, highly engaging, and well-structured piece about the following topic: "${input}". Ensure clear headings, tone customization, high readability, and actionable insights.`;
+                    break;
+                case 'code':
+                    enhanced = `Act as an elite senior software engineer. Write clean, optimized, secure, and well-commented code for the following requirement: "${input}". Provide explanation of how it works and how to handle potential errors.`;
+                    break;
+                case 'marketing':
+                    enhanced = `Act as a world-class marketing strategist and growth hacker. Create a compelling marketing and conversion-focused copy based on this premise: "${input}". Include a strong hook, clear value proposition, target audience engagement, and a compelling call-to-action (CTA).`;
+                    break;
+                case 'analysis':
+                    enhanced = `Act as an expert analyst and problem solver. Analyze the following scenario in-depth, break down potential bottlenecks, and provide a structured step-by-step solution or strategic roadmap: "${input}".`;
+                    break;
+            }
+
+            document.getElementById('outputBox').innerText = enhanced;
+            document.getElementById('resultContainer').classList.remove('hidden');
+        }
+
+        function copyResult() {
+            const text = document.getElementById('outputBox').innerText;
+            navigator.clipboard.writeText(text);
+            alert('تم نسخ البرومبت بنجاح! جاهز للاستخدام.');
+        }
+    </script>
+</body>
+</html>
