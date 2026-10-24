@@ -150,7 +150,7 @@
 
 أجب حصراً بصيغة JSON صالحة للتحليل البرمجي وبدون أي مقدمات أو علامات markdown خارجية بالشكل التالي:
 {
-  "score": رقم من 0 إلى 100 يعبر عن جودة الفكرة,
+  "score": 75,
   "title": "عنوان ملخص للتقييم",
   "flaw": "الثغرة الأساسية القاتلة في الفكرة باختصار",
   "analysis": "النقطة الأولى.\nالنقطة الثانية.\nالنقطة الثالثة.",
@@ -167,8 +167,8 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        // تم التحديث هنا للنموذج المتاح والسريع جداً
-                        model: "google/gemini-2.0-flash-001",
+                        // تم تحديث اسم النموذج إلى نموذج مجاني ومستقر جداً من Llama 3.3
+                        model: "meta-llama/llama-3.3-70b-instruct:free",
                         messages: [
                             { role: "user", content: systemPrompt }
                         ],
