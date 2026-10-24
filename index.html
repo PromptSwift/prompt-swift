@@ -105,8 +105,8 @@
     </footer>
 
     <script>
-        // ضع مفتاح Gemini API الخاص بك هنا
-        const GEMINI_API_KEY = "AQ.Ab8RN6LeB3DehQsEfMv4TYE8BBKXcI2NGZOH_OOdsp1KmaT9vA";
+        // مفتاح Gemini الخاص بك المدمج مباشرة
+        const GEMINI_API_KEY = "AQ.Ab8RN6I8ByIv_Lt-mp0FkJXZEP7uZEMpUq84Hqv4OT-YSS3ORw";
 
         let currentTone = 'brutal';
 
@@ -131,11 +131,6 @@
 
             if(!pitch) {
                 alert('يرجى كتابة فكرة المشروع أولاً!');
-                return;
-            }
-
-            if(GEMINI_API_KEY === "AQ.Ab8RN6LeB3DehQsEfMv4TYE8BBKXcI2NGZOH_OOdsp1KmaT9vA") {
-                alert('يرجى إضافة مفتاح Gemini API في كود الموقع أولاً!');
                 return;
             }
 
@@ -180,7 +175,6 @@
                 if(data.error) throw new Error(data.error.message);
 
                 let rawText = data.candidates[0].content.parts[0].text;
-                // Cleaning response if wraps in markdown codeblocks
                 rawText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
 
                 const result = JSON.parse(rawText);
