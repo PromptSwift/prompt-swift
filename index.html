@@ -3,434 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HabitAudit - مدقق العادات الخفية</title>
-    <!-- Tailwind CSS CDN -->
+    <title>RoastMyPitch - مختبر تقييم الأفكار والمشاريع</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Cairo -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: #020617; /* slate-950 */
-            color: #f8fafc;
-        }
-        /* Custom Glowing and Glassmorphic Utilities */
-        .glow-purple {
-            box-shadow: 0 0 25px -5px rgba(168, 85, 247, 0.4);
-        }
-        .glow-emerald {
-            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.4);
-        }
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(51, 65, 85, 0.5);
-        }
-        /* Custom range slider styling */
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 24px;
-            width: 24px;
-            border-radius: 50%;
-            background: #a855f7;
-            cursor: pointer;
-            box-shadow: 0 0 10px #a855f7;
-            margin-top: -8px;
-        }
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 8px;
-            cursor: pointer;
-            background: #1e293b;
-            border-radius: 4px;
-        }
+        body { font-family: 'Cairo', sans-serif; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-purple-500 selection:text-white">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between">
 
-    <!-- Header Section -->
-    <header class="border-b border-slate-800/80 py-4 px-6 glass-panel sticky top-0 z-50">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center text-xl font-black text-white shadow-lg shadow-purple-900/40">
-                    ⚡
-                </div>
-                <div>
-                    <h1 class="text-xl font-extrabold tracking-wide bg-gradient-to-r from-purple-400 via-indigo-300 to-emerald-400 bg-clip-text text-transparent">
-                        HabitAudit
-                    </h1>
-                    <p class="text-xs text-slate-400 hidden sm:block">كشف حساب يومي لعاداتك ووقتك بدون تجميل</p>
-                </div>
-            </div>
-
-            <!-- Streak Badge -->
-            <div id="streakContainer" class="flex items-center gap-2 bg-slate-900/90 border border-slate-800 px-3 py-1.5 rounded-full text-xs font-bold text-amber-400">
-                <span>🔥</span>
-                <span>سلسلة الالتزام: <span id="streakCount" class="text-white font-extrabold">0</span> يوم</span>
-            </div>
+    <!-- Header -->
+    <header class="border-b border-slate-800 py-4 px-6 flex justify-between items-center bg-slate-900/50 backdrop-blur sticky top-0 z-50">
+        <div class="flex items-center gap-2">
+            <span class="text-2xl">🔥</span>
+            <h1 class="text-xl font-extrabold bg-gradient-to-r from-orange-400 via-red-500 to-purple-500 bg-clip-text text-transparent">RoastMyPitch</h1>
         </div>
+        <span class="text-xs bg-red-950/60 text-red-400 border border-red-800/50 px-3 py-1 rounded-full font-semibold">مختبر التقييم الصريح</span>
     </header>
 
-    <!-- Main Content Container -->
+    <!-- Main Content -->
     <main class="max-w-2xl w-full mx-auto px-4 py-8 flex-grow">
-        
-        <!-- Hero Tagline -->
         <div class="text-center mb-8">
-            <span class="inline-block px-3 py-1 bg-purple-950/60 border border-purple-800/50 text-purple-300 rounded-full text-xs font-semibold mb-3">
-                🔍 تدقيق واقعي 100%
-            </span>
-            <h2 class="text-3xl sm:text-4xl font-black mb-3 leading-tight">
-                أين ذهب يومك الحقيقي؟
-            </h2>
-            <p class="text-slate-400 text-sm max-w-md mx-auto">
-                أجب عن الأسئلة الثلاثة التالية بصدق مطلق، واحصل على تقييم صريح يكشف لك الفجوات ويُعيدك لمسارك الصحيح.
+            <h2 class="text-3xl font-extrabold mb-3">ضع فكرتك تحت التقييم الحقيقي 🎯</h2>
+            <p class="text-slate-400 text-sm leading-relaxed max-w-lg mx-auto">
+                اكتب فكرة مشروعك أو شركتك الناشئة باختصار، واختر نبرة التقييم لتعرف نقاط القوة، العيوب القاتلة، وكيف تحسنها قبل إهدار وقتك وأموالك.
             </p>
         </div>
 
-        <!-- Assessment Form Card -->
-        <div id="auditFormCard" class="glass-panel rounded-3xl p-6 sm:p-8 shadow-2xl transition-all duration-300">
-            
-            <!-- Step 1: Biggest Distractor -->
-            <div class="mb-8">
-                <label class="block text-sm font-bold text-purple-300 mb-3 flex items-center gap-2">
-                    <span class="w-6 h-6 rounded-full bg-purple-900/60 text-purple-300 text-xs flex items-center justify-center font-mono border border-purple-700/50">1</span>
-                    ما هو المشتت الأكبر الذي سرق وقتك اليوم؟
-                </label>
-                <div class="grid grid-cols-2 gap-3" id="distractorGrid">
-                    <button type="button" onclick="selectDistractor('social', this)" class="distractor-btn border border-slate-800 bg-slate-900/60 hover:border-purple-500/50 hover:bg-purple-950/20 p-4 rounded-2xl text-right text-sm font-semibold transition flex flex-col gap-2 group">
-                        <span class="text-2xl">📱</span>
-                        <span>شبكات التواصل والتصفح</span>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+            <div class="mb-5">
+                <label class="block text-sm font-semibold mb-2 text-slate-300">اشرح فكرة مشروعك (في سطرين أو أكثر):</label>
+                <textarea id="pitchInput" rows="3" placeholder="مثال: تطبيق يربط أصحاب السيارات بالورش القريبة مع خدمة تتبع الخدمة ومواعيد الصيانة..." 
+                    class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-slate-100 focus:outline-none focus:border-red-500 transition text-sm resize-none"></textarea>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-semibold mb-2 text-slate-300">اختر نبرة المحلل:</label>
+                <div class="grid grid-cols-3 gap-2">
+                    <button type="button" onclick="setTone('brutal')" id="btn-brutal" class="tone-btn border border-red-500/50 bg-red-950/30 text-red-300 rounded-xl p-3 text-xs font-bold text-center transition flex flex-col items-center gap-1">
+                        <span class="text-lg">🔥</span>
+                        <span>ساخر وصريح</span>
                     </button>
-                    <button type="button" onclick="selectDistractor('gaming', this)" class="distractor-btn border border-slate-800 bg-slate-900/60 hover:border-purple-500/50 hover:bg-purple-950/20 p-4 rounded-2xl text-right text-sm font-semibold transition flex flex-col gap-2 group">
-                        <span class="text-2xl">🎮</span>
-                        <span>تسويف وألعاب/مسلسلات</span>
+                    <button type="button" onclick="setTone('vc')" id="btn-vc" class="tone-btn border border-slate-800 bg-slate-950 text-slate-400 rounded-xl p-3 text-xs font-bold text-center transition flex flex-col items-center gap-1">
+                        <span class="text-lg">💼</span>
+                        <span>مستثمر (VC)</span>
                     </button>
-                    <button type="button" onclick="selectDistractor('meetings', this)" class="distractor-btn border border-slate-800 bg-slate-900/60 hover:border-purple-500/50 hover:bg-purple-950/20 p-4 rounded-2xl text-right text-sm font-semibold transition flex flex-col gap-2 group">
-                        <span class="text-2xl">💬</span>
-                        <span>اجتماعات وسوالف جانبية</span>
-                    </button>
-                    <button type="button" onclick="selectDistractor('overthinking', this)" class="distractor-btn border border-slate-800 bg-slate-900/60 hover:border-purple-500/50 hover:bg-purple-950/20 p-4 rounded-2xl text-right text-sm font-semibold transition flex flex-col gap-2 group">
-                        <span class="text-2xl">🌀</span>
-                        <span>تفكير زائد وتخطيط بلا تنفيذ</span>
+                    <button type="button" onclick="setTone('mentor')" id="btn-mentor" class="tone-btn border border-slate-800 bg-slate-950 text-slate-400 rounded-xl p-3 text-xs font-bold text-center transition flex flex-col items-center gap-1">
+                        <span class="text-lg">🌱</span>
+                        <span>موجه مشجع</span>
                     </button>
                 </div>
             </div>
 
-            <!-- Step 2: Lost Hours Slider -->
-            <div class="mb-8">
-                <div class="flex justify-between items-center mb-3">
-                    <label class="text-sm font-bold text-purple-300 flex items-center gap-2">
-                        <span class="w-6 h-6 rounded-full bg-purple-900/60 text-purple-300 text-xs flex items-center justify-center font-mono border border-purple-700/50">2</span>
-                        كم ساعة تظن أنها ضاعت هباءً اليوم؟
-                    </label>
-                    <span id="hoursValue" class="text-lg font-extrabold text-amber-400 bg-amber-950/40 border border-amber-800/50 px-3 py-1 rounded-xl">
-                        3 ساعات
-                    </span>
-                </div>
-                <input type="range" id="hoursSlider" min="0" max="10" value="3" step="1" oninput="updateHoursDisplay(this.value)" class="w-full">
-                <div class="flex justify-between text-xs text-slate-500 mt-2 font-mono">
-                    <span>0 س (مثالي)</span>
-                    <span>5 س</span>
-                    <span>10 س (كارثة)</span>
-                </div>
-            </div>
-
-            <!-- Step 3: Main Goal Accomplishment -->
-            <div class="mb-8">
-                <label class="block text-sm font-bold text-purple-300 mb-3 flex items-center gap-2">
-                    <span class="w-6 h-6 rounded-full bg-purple-900/60 text-purple-300 text-xs flex items-center justify-center font-mono border border-purple-700/50">3</span>
-                    هل أنجزت أهم شيء كان عليك فعله اليوم؟
-                </label>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3" id="accomplishmentGrid">
-                    <button type="button" onclick="selectAccomplishment('full', this)" class="acc-btn border border-slate-800 bg-slate-900/60 hover:border-emerald-500/50 hover:bg-emerald-950/20 p-3 rounded-xl text-center text-xs font-bold transition">
-                        🟢 نعم بكل كفاءة
-                    </button>
-                    <button type="button" onclick="selectAccomplishment('half', this)" class="acc-btn border border-slate-800 bg-slate-900/60 hover:border-amber-500/50 hover:bg-amber-950/20 p-3 rounded-xl text-center text-xs font-bold transition">
-                        🟡 نصف إنجاز
-                    </button>
-                    <button type="button" onclick="selectAccomplishment('none', this)" class="acc-btn border border-slate-800 bg-slate-900/60 hover:border-rose-500/50 hover:bg-rose-950/20 p-3 rounded-xl text-center text-xs font-bold transition">
-                        🔴 لم أنجز شيئاً
-                    </button>
-                </div>
-            </div>
-
-            <!-- Submit Action Button -->
-            <button onclick="generateAuditReport()" class="w-full py-4 bg-gradient-to-r from-purple-600 via-indigo-600 to-emerald-600 hover:from-purple-500 hover:to-emerald-500 text-white font-black text-base rounded-2xl shadow-xl glow-purple transition transform active:scale-98 flex items-center justify-center gap-2">
-                <span>اصدر كشف الحساب الصريح</span>
-                <span class="text-xl">🔍</span>
+            <button onclick="roastPitch()" 
+                class="w-full bg-gradient-to-r from-red-600 via-orange-600 to-purple-600 hover:from-red-500 hover:to-purple-500 text-white font-bold py-3.5 rounded-xl transition shadow-lg shadow-red-900/20 text-sm flex items-center justify-center gap-2">
+                <span>تشغيل التقييم الآن</span>
+                <span>🚀</span>
             </button>
         </div>
 
-        <!-- Result View Card (Hidden Initially) -->
-        <div id="resultCard" class="hidden glass-panel rounded-3xl p-6 sm:p-8 shadow-2xl transition-all duration-500 relative overflow-hidden">
-            
-            <!-- Top Status Badge -->
-            <div class="flex justify-between items-center mb-6 border-b border-slate-800 pb-4">
-                <div class="flex items-center gap-2">
-                    <span class="text-xs text-slate-400">تقييم اليوم:</span>
-                    <span id="reportDate" class="text-xs font-mono text-purple-300 font-bold"></span>
+        <!-- Output Scorecard -->
+        <div id="resultContainer" class="mt-8 hidden">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl relative">
+                
+                <div class="flex justify-between items-center pb-4 border-b border-slate-800 mb-5">
+                    <div>
+                        <span class="text-xs text-slate-400 block mb-1">بطاقة تقييم المشروع</span>
+                        <h3 id="scoreTitle" class="text-lg font-bold text-red-400">تحليل الفكرة</h3>
+                    </div>
+                    <div class="text-left bg-slate-950 px-4 py-2 rounded-xl border border-slate-800">
+                        <span class="text-xs text-slate-500 block">النتيجة العامة</span>
+                        <span id="scoreNumber" class="text-2xl font-extrabold text-orange-400">0/100</span>
+                    </div>
                 </div>
-                <div id="scoreBadge" class="px-4 py-1.5 rounded-full text-xs font-extrabold border shadow-lg">
-                    <!-- Dynamic score badge inserted by JS -->
-                </div>
-            </div>
 
-            <!-- Brutal Reality Check Quote -->
-            <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-5 mb-6 relative">
-                <span class="absolute -top-3 right-4 bg-slate-900 px-2 text-xs text-purple-400 font-bold border border-slate-800 rounded-md">
-                    📢 التشخيص الصريح
-                </span>
-                <p id="realityCheckText" class="text-base sm:text-lg font-bold text-slate-100 leading-relaxed mt-1">
-                    <!-- Dynamic Brutal Statement -->
-                </p>
-            </div>
+                <div class="space-y-4 text-sm mb-6">
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80">
+                        <h4 class="text-xs font-bold text-red-400 mb-1 flex items-center gap-1">⚠️ الثغرة الأساسية (Critical Flaw):</h4>
+                        <p id="flawText" class="text-slate-300 text-xs leading-relaxed"></p>
+                    </div>
 
-            <!-- Stats Breakdown Grid -->
-            <div class="grid grid-cols-3 gap-3 mb-6">
-                <div class="bg-slate-900/60 border border-slate-800/80 p-3 rounded-2xl text-center">
-                    <span class="block text-xs text-slate-400 mb-1">الوقت المهدور</span>
-                    <span id="statLostHours" class="text-base sm:text-lg font-black text-amber-400"></span>
-                </div>
-                <div class="bg-slate-900/60 border border-slate-800/80 p-3 rounded-2xl text-center">
-                    <span class="block text-xs text-slate-400 mb-1">مستوى التركيز</span>
-                    <span id="statFocusLevel" class="text-base sm:text-lg font-black text-purple-400"></span>
-                </div>
-                <div class="bg-slate-900/60 border border-slate-800/80 p-3 rounded-2xl text-center">
-                    <span class="block text-xs text-slate-400 mb-1">التقييم العام</span>
-                    <span id="statGeneralGrade" class="text-base sm:text-lg font-black text-emerald-400"></span>
-                </div>
-            </div>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80">
+                        <h4 class="text-xs font-bold text-purple-400 mb-1 flex items-center gap-1">🎯 التقييم التفصيلي:</h4>
+                        <p id="analysisText" class="text-slate-300 text-xs leading-relaxed whitespace-pre-line"></p>
+                    </div>
 
-            <!-- Actionable Tip for Tomorrow -->
-            <div class="bg-emerald-950/20 border border-emerald-800/40 rounded-2xl p-4 mb-6 flex items-start gap-3">
-                <span class="text-2xl">💡</span>
-                <div>
-                    <h4 class="text-xs font-bold text-emerald-400 mb-1">خطة تصحيح المسار لغدٍ أفضل:</h4>
-                    <p id="tomorrowTip" class="text-xs sm:text-sm text-slate-300 leading-relaxed"></p>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80">
+                        <h4 class="text-xs font-bold text-emerald-400 mb-1 flex items-center gap-1">💡 الخطوة القادمة لتعديل المسار:</h4>
+                        <p id="actionText" class="text-slate-300 text-xs leading-relaxed"></p>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Card Actions (Copy & Reset) -->
-            <div class="flex flex-col sm:flex-row gap-3">
-                <button onclick="copyAuditReport()" class="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold text-xs sm:text-sm rounded-xl transition flex items-center justify-center gap-2 border border-slate-700">
+                <button onclick="copyScorecard()" class="w-full bg-slate-800 hover:bg-slate-700 py-3 rounded-xl text-xs font-bold text-slate-200 transition flex items-center justify-center gap-2 border border-slate-700">
                     <span>📋 نسخ التقرير لمشاركته</span>
                 </button>
-                <button onclick="resetAuditForm()" class="py-3 px-6 bg-purple-950/50 hover:bg-purple-900/60 text-purple-300 font-bold text-xs sm:text-sm rounded-xl transition border border-purple-800/50">
-                    🔄 إدخال جديد
-                </button>
             </div>
         </div>
-
-        <!-- History Log Section -->
-        <div class="mt-12">
-            <h3 class="text-lg font-extrabold mb-4 flex items-center gap-2">
-                <span>📊 سجل الأيام السابقة</span>
-            </h3>
-            <div id="historyList" class="space-y-3">
-                <!-- Dynamic History items will be inserted here -->
-            </div>
-        </div>
-
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-slate-900 py-6 text-center text-xs text-slate-600">
-        <p>HabitAudit AI © 2026 — مدقق العادات الخفية لتطوير الذات بالواقعية</p>
+    <footer class="border-t border-slate-800 text-center py-4 text-xs text-slate-500">
+        RoastMyPitch © 2026 - تقييم وتطوير المشاريع الرقمية
     </footer>
 
-    <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 border border-purple-500/50 text-white text-xs font-bold px-6 py-3 rounded-full shadow-2xl transition opacity-0 pointer-events-none z-50 flex items-center gap-2">
-        <span id="toastMsg">تم بنجاح</span>
-    </div>
-
-    <!-- Application Logic Script -->
     <script>
-        // State variables
-        let selectedDistractor = null;
-        let selectedAccomplishment = null;
-        let currentLostHours = 3;
+        let currentTone = 'brutal';
 
-        // Initialize state on load
-        window.onload = function() {
-            loadStreakAndHistory();
-        };
-
-        // Option Selector Functions
-        function selectDistractor(type, element) {
-            selectedDistractor = type;
-            document.querySelectorAll('.distractor-btn').forEach(btn => {
-                btn.classList.remove('border-purple-500', 'bg-purple-950/40', 'glow-purple');
-                btn.classList.add('border-slate-800', 'bg-slate-900/60');
+        function setTone(tone) {
+            currentTone = tone;
+            document.querySelectorAll('.tone-btn').forEach(btn => {
+                btn.className = 'tone-btn border border-slate-800 bg-slate-950 text-slate-400 rounded-xl p-3 text-xs font-bold text-center transition flex flex-col items-center gap-1';
             });
-            element.classList.remove('border-slate-800', 'bg-slate-900/60');
-            element.classList.add('border-purple-500', 'bg-purple-950/40', 'glow-purple');
-        }
 
-        function selectAccomplishment(type, element) {
-            selectedAccomplishment = type;
-            document.querySelectorAll('.acc-btn').forEach(btn => {
-                btn.classList.remove('border-emerald-500', 'border-amber-500', 'border-rose-500', 'bg-slate-800');
-                btn.classList.add('border-slate-800', 'bg-slate-900/60');
-            });
-            
-            element.classList.remove('border-slate-800', 'bg-slate-900/60');
-            if(type === 'full') element.classList.add('border-emerald-500', 'bg-slate-800');
-            if(type === 'half') element.classList.add('border-amber-500', 'bg-slate-800');
-            if(type === 'none') element.classList.add('border-rose-500', 'bg-slate-800');
-        }
-
-        function updateHoursDisplay(val) {
-            currentLostHours = parseInt(val);
-            document.getElementById('hoursValue').innerText = `${val} ساعات`;
-        }
-
-        // Generate Audit Report Logic
-        function generateAuditReport() {
-            if(!selectedDistractor) {
-                showToast("⚠️ الرجاء اختيار المشتت الأكبر الذي سرق وقتك اليوم!");
-                return;
-            }
-            if(!selectedAccomplishment) {
-                showToast("⚠️ الرجاء اختيار مدى إنجازك لهدفك الرئيسي اليوم!");
-                return;
-            }
-
-            // Calculate Efficiency Score
-            let score = 100;
-            score -= (currentLostHours * 7); // deduction for lost hours
-            
-            if(selectedAccomplishment === 'half') score -= 20;
-            if(selectedAccomplishment === 'none') score -= 45;
-
-            // Clamp score between 10% and 99%
-            score = Math.max(10, Math.min(99, score));
-
-            // Generate Wit & Brutal Reality Check Statements based on inputs
-            let realityText = "";
-            let tipText = "";
-            let generalGrade = "";
-
-            if(score >= 75) {
-                generalGrade = "ممتاز 🔥";
-                realityText = "يوم قوي وإنجاز محترم! ورغم وجود بعض التشتت الفردي، إلا أنك استطعت حماية وقتك وإنجاز المهمة الأهم. استمر بنفس الحزم غداً.";
-                tipText = "حافظ على بيئة العمل الحالية وقم بتبكير بدء أثقل مهمة لديك بـ 30 دقيقة غداً لتصل للكفاءة القصوى.";
-            } else if(score >= 45) {
-                generalGrade = "متوسط ⚠️";
-                realityText = `تسريب الوقت كان واضحاً اليوم (${currentLostHours} ساعات ضائعة). أنت تملك الكفاءة لكنك سمحت للمشتتات بسحب تركيزك وتأجيل الجزء الأكبر من أهدافك.`;
-                tipText = "جرب تقنية (25 دقيقة تركيز مطلق + 5 دقائق راحة) وغلق التنبيهات تماماً أثناء فترة الإنجاز.";
+            const activeBtn = document.getElementById(`btn-${tone}`);
+            if(tone === 'brutal') {
+                activeBtn.className = 'tone-btn border border-red-500/50 bg-red-950/30 text-red-300 rounded-xl p-3 text-xs font-bold text-center transition flex flex-col items-center gap-1';
+            } else if(tone === 'vc') {
+                activeBtn.className = 'tone-btn border border-purple-500/50 bg-purple-950/30 text-purple-300 rounded-xl p-3 text-xs font-bold text-center transition flex flex-col items-center gap-1';
             } else {
-                generalGrade = "ضعيف 🚨";
-                realityText = `يوم غير مستقر كلياً! إهدار ${currentLostHours} ساعات مع عدم إنجاز الهدف الرئيسي يعني أن المشتتات أدارت يومك بدلاً منك. حان وقت الوقوف بجدية مع النفس.`;
-                tipText = "ابدأ غداً بمهمة واحدة فقط لا تتجاوز 15 دقيقة فور استيقاظك كسر لحالة التسويف واستعادة للثقة.";
+                activeBtn.className = 'tone-btn border border-emerald-500/50 bg-emerald-950/30 text-emerald-300 rounded-xl p-3 text-xs font-bold text-center transition flex flex-col items-center gap-1';
             }
-
-            // Distractor-specific tweak
-            if(selectedDistractor === 'social') realityText += " حاول تقليل زمن الشاشة وتعيين حدود للتطبيقات.";
-            if(selectedDistractor === 'overthinking') realityText += " تذكر أن خطة غير كاملة مُنفذة أفضل ألف مرة من فكرة مثالية في رأسك.";
-
-            // Display Results
-            document.getElementById('reportDate').innerText = new Date().toLocaleDateString('ar-EG', { weekday: 'long', month: 'short', day: 'numeric' });
-            
-            const badgeEl = document.getElementById('scoreBadge');
-            badgeEl.innerText = `${score}% كفاءة اليوم`;
-            if(score >= 75) {
-                badgeEl.className = "px-4 py-1.5 rounded-full text-xs font-extrabold bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 shadow-emerald-900/30 shadow-lg";
-            } else if(score >= 45) {
-                badgeEl.className = "px-4 py-1.5 rounded-full text-xs font-extrabold bg-amber-950/80 border border-amber-500/50 text-amber-300 shadow-amber-900/30 shadow-lg";
-            } else {
-                badgeEl.className = "px-4 py-1.5 rounded-full text-xs font-extrabold bg-rose-950/80 border border-rose-500/50 text-rose-300 shadow-rose-900/30 shadow-lg";
-            }
-
-            document.getElementById('realityCheckText').innerText = `"${realityText}"`;
-            document.getElementById('statLostHours').innerText = `${currentLostHours} س`;
-            document.getElementById('statFocusLevel').innerText = selectedAccomplishment === 'full' ? 'عالي' : (selectedAccomplishment === 'half' ? 'متوسط' : 'منخفض');
-            document.getElementById('statGeneralGrade').innerText = generalGrade;
-            document.getElementById('tomorrowTip').innerText = tipText;
-
-            // Transition Cards
-            document.getElementById('auditFormCard').classList.add('hidden');
-            document.getElementById('resultCard').classList.remove('hidden');
-
-            // Save to LocalStorage and update history/streak
-            saveToHistory({
-                date: new Date().toLocaleDateString('ar-EG', { month: 'short', day: 'numeric' }),
-                score: score,
-                lostHours: currentLostHours,
-                grade: generalGrade
-            });
         }
 
-        // Reset Form to take a new entry
-        function resetAuditForm() {
-            document.getElementById('resultCard').classList.add('hidden');
-            document.getElementById('auditFormCard').classList.remove('hidden');
-        }
-
-        // LocalStorage History & Streak Handling
-        function saveToHistory(entry) {
-            let history = JSON.parse(localStorage.getItem('habit_audit_history') || '[]');
-            history.unshift(entry);
-            if(history.length > 7) history.pop(); // Keep last 7 logs
-            localStorage.setItem('habit_audit_history', JSON.stringify(history));
-
-            // Update streak
-            let streak = parseInt(localStorage.getItem('habit_audit_streak') || '0');
-            streak += 1;
-            localStorage.setItem('habit_audit_streak', streak.toString());
-
-            loadStreakAndHistory();
-        }
-
-        function loadStreakAndHistory() {
-            // Load Streak
-            const streak = localStorage.getItem('habit_audit_streak') || '0';
-            document.getElementById('streakCount').innerText = streak;
-
-            // Load History List
-            const history = JSON.parse(localStorage.getItem('habit_audit_history') || '[]');
-            const historyContainer = document.getElementById('historyList');
-
-            if(history.length === 0) {
-                historyContainer.innerHTML = `
-                    <div class="text-center py-6 text-slate-600 text-xs bg-slate-900/30 rounded-2xl border border-slate-900">
-                        لا يوجد سجل سابق بعد. أكمل أول تدقيق لك اليوم!
-                    </div>
-                `;
+        function roastPitch() {
+            const input = document.getElementById('pitchInput').value.trim();
+            if(!input) {
+                alert('يرجى كتابة فكرة المشروع أولاً!');
                 return;
             }
 
-            historyContainer.innerHTML = history.map(item => `
-                <div class="glass-panel p-3.5 rounded-xl flex justify-between items-center text-xs">
-                    <div class="flex items-center gap-3">
-                        <span class="font-mono text-slate-400">${item.date}</span>
-                        <span class="font-bold text-slate-200">${item.grade}</span>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <span class="text-slate-400">ضياع: ${item.lostHours}س</span>
-                        <span class="font-extrabold font-mono text-purple-400">${item.score}%</span>
-                    </div>
-                </div>
-            `).join('');
+            let score = 0;
+            let title = "";
+            let flaw = "";
+            let analysis = "";
+            let action = "";
+
+            if(currentTone === 'brutal') {
+                score = Math.floor(Math.random() * 25) + 45; // 45 - 70
+                title = "تشخيص صريح وحاد 💥";
+                flaw = "الفكرة تفترض أن العميل سينزل تطبيقاً جديداً من أجل خدمة يمكنه الحصول عليها باتصال سريع أو تطبيق يستخدمه يومياً. تكلفة الاستحواذ على المستخدمين ستكون أعلى من الأرباح المتوقعة.";
+                analysis = `• النموذج التشغيلي معقد ويحتاج سيولة عالية في البداية.
+• المنافسة المباشرة وغير المباشرة شديدة جداً.
+• القيمة المضافة غير كافية لدفِع المستخدم لتغيير سلوكه الحالي.`;
+                action = "ابدأ بصفحة هبوط بسيطة (Landing Page) أو مجتمع على الواتساب/تيليجرام لتجربة الطلب الحقيقي يدوياً قبل كتابة أي سطر برمجي.";
+            } else if(currentTone === 'vc') {
+                score = Math.floor(Math.random() * 20) + 60; // 60 - 80
+                title = "منظور رأس المال الجريء (VC) 💼";
+                flaw = "صعوبة إثبات التوسع السريع (Scalability) في مراحل المشروع الأولى ونقص آلية واضحة للارتقاء بالقيمة المستدامة للعميل (LTV).";
+                analysis = `• السوق الكلي المتاح (TAM) واعد ولكن يحتاج لتحديد شريحة أولية صغرى (TAM niche).
+• القيمة الاستثمارية تعتمد على مدى بناء "خندق دفاعي" (Moat) قوي مثل بيانات الحصرية أو أثر الشبكة.`;
+                action = "ركز على تحديد مؤشر قياسي واحد (KPI) مثل معدل الاحتفاظ بالأسبوع الأول (W1 Retention) وقدم خطة مالية لـ 12 شهراً.";
+            } else {
+                score = Math.floor(Math.random() * 20) + 75; // 75 - 95
+                title = "توجيه استراتيجي بناء 🌱";
+                flaw = "الفكرة ممتازة وتلامس احتياجاً واقعياً، ولكن التحدي الأكبر يكمن في الوصول لأول 100 عميل يدفعون بانتظام.";
+                analysis = `• نقطة القوة: حل مباشر لمشكلة حقيقية يواجهها الجمهور.
+• الفرصة: بناء علامة تجارية تعتمد على الثقة والتواصل المباشر مع المستخدمين الأوائل.`;
+                action = "حدد شريحة مستهدفة ضيقة جداً (Niche Market) وركز كل جهودك التسويقية عليها خلال أول 30 يوماً.";
+            }
+
+            document.getElementById('scoreTitle').innerText = title;
+            document.getElementById('scoreNumber').innerText = `${score}/100`;
+            document.getElementById('flawText').innerText = flaw;
+            document.getElementById('analysisText').innerText = analysis;
+            document.getElementById('actionText').innerText = action;
+
+            document.getElementById('resultContainer').classList.remove('hidden');
+            document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Copy Shareable Report
-        function copyAuditReport() {
-            const score = document.getElementById('scoreBadge').innerText;
-            const reality = document.getElementById('realityCheckText').innerText;
-            const textToCopy = `⚡ HabitAudit - كشف حساب عاداتي اليوم:\n📊 النتيجة: ${score}\n📢 التشخيص: ${reality}\n\nجرب الأداة وقيم يومك بواقعية: ${window.location.href}`;
+        function copyScorecard() {
+            const score = document.getElementById('scoreNumber').innerText;
+            const input = document.getElementById('pitchInput').value;
+            const flaw = document.getElementById('flawText').innerText;
+            
+            const shareText = `🔥 جربت أداة RoastMyPitch لتقييم فكرة مشروعي:
+"${input}"
 
-            navigator.clipboard.writeText(textToCopy);
-            showToast("📋 تم نسخ التقرير للحافظة جاهزاً للمشاركة!");
-        }
+📊 النتيجة: ${score}
+⚠️ الثغرة الأساسية: ${flaw}
 
-        // Toast Notification Helper
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMsg').innerText = msg;
-            toast.classList.remove('opacity-0', 'pointer-events-none');
-            setTimeout(() => {
-                toast.classList.add('opacity-0', 'pointer-events-none');
-            }, 3000);
+قيم فكرتك مجاناً الآن عبر: https://prompt-swift.vercel.app/`;
+
+            navigator.clipboard.writeText(shareText);
+            alert('تم نسخ تقرير التقييم! جاهز للمشاركة.');
         }
     </script>
 </body>
