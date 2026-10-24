@@ -105,7 +105,6 @@
     </footer>
 
     <script>
-        // مفتاح OpenRouter الخاص بك المدمج مباشرة
         const OPENROUTER_API_KEY = "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";
 
         let currentTone = 'brutal';
@@ -168,7 +167,8 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        model: "google/gemini-flash-1.5", // نموذج سريع وذكي ومجاني في الغالب عبر OpenRouter
+                        // تم التحديث هنا للنموذج المتاح والسريع جداً
+                        model: "google/gemini-2.0-flash-001",
                         messages: [
                             { role: "user", content: systemPrompt }
                         ],
