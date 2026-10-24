@@ -167,12 +167,10 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        // تم تحديث اسم النموذج إلى نموذج مجاني ومستقر جداً من Llama 3.3
-                        model: "meta-llama/llama-3.3-70b-instruct:free",
+                        model: "deepseek/deepseek-r1:free",
                         messages: [
                             { role: "user", content: systemPrompt }
-                        ],
-                        response_format: { type: "json_object" }
+                        ]
                     })
                 });
 
@@ -183,7 +181,16 @@
                 }
 
                 let rawText = data.choices[0].message.content;
+                // تنظيف استجابة النماذج الاستدلالية من وسوم التفكير وmarkdown
+                rawText = rawText.replace(/<think>[\s\S]*?<\/think>/g, '');
                 rawText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
+                
+                // استخراج JSON بدقة من النص في حال وجود نصوص إضافية
+                const jsonStart = rawText.indexOf('{');
+                const jsonEnd = rawText.lastIndexOf('}');
+                if (jsonStart !== -1 && jsonEnd !== -1) {
+                    rawText = rawText.substring(jsonStart, jsonEnd + 1);
+                }
 
                 const result = JSON.parse(rawText);
 
